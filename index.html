@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mayur More — M.Tech IIT Bombay</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0D1B2A;
+      --navy-mid: #132336;
+      --navy-light: #1A3050;
+      --cyan: #00C2D4;
+      --cyan-dim: #009AAA;
+      --gold: #F0A500;
+      --gold-dim: #C88A00;
+      --white: #F8FAFC;
+      --muted: #94A3B8;
+      --card: #162033;
+      --border: rgba(0,194,212,0.15);
+      --radius: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 5%;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.1rem;
+      color: var(--cyan); letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.03em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    .btn-pdf {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      color: var(--navy); border: none; border-radius: 8px;
+      padding: 9px 22px; font-weight: 700; font-size: 0.85rem;
+      cursor: pointer; letter-spacing: 0.04em;
+      transition: transform .15s, box-shadow .15s;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .btn-pdf:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(240,165,0,0.4); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 5% 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(0,194,212,0.07) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 50% at 20% 80%, rgba(240,165,0,0.05) 0%, transparent 60%);
+    }
+    /* Streamline SVG */
+    .hero-svg {
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      width: 55%; opacity: 0.12; z-index: 0;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,194,212,0.1); border: 1px solid rgba(0,194,212,0.25);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 0.78rem; font-weight: 600; color: var(--cyan);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); display: inline-block; }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700; line-height: 1.05;
+      letter-spacing: -0.02em; margin-bottom: 12px;
+    }
+    h1 .accent { color: var(--cyan); }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted); margin-bottom: 6px;
+    }
+    .hero-inst {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem; color: var(--gold); font-weight: 600;
+      margin-bottom: 28px; letter-spacing: 0.02em;
+    }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+    .tag {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; padding: 5px 13px; font-size: 0.8rem; color: var(--muted);
+    }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--cyan); color: var(--navy);
+      border: none; border-radius: 8px; padding: 13px 30px;
+      font-weight: 700; font-size: 0.95rem; cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.02em;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,194,212,0.35); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
+      padding: 13px 30px; font-weight: 600; font-size: 0.95rem;
+      cursor: pointer; font-family: 'Space Grotesk', sans-serif;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── STAT BAR ── */
+    .stat-bar {
+      background: var(--card); border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+    }
+    .stat-item {
+      padding: 24px 40px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.9rem; font-weight: 700; color: var(--cyan);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; letter-spacing: 0.04em; }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 5%; }
+    section:nth-child(even) { background: var(--navy-mid); }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--cyan); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; margin-bottom: 40px;
+      letter-spacing: -0.01em;
+    }
+    h2 .line {
+      display: inline-block; width: 40px; height: 3px;
+      background: var(--cyan); border-radius: 2px;
+      vertical-align: middle; margin-left: 12px;
+    }
+
+    /* ── EDUCATION TABLE ── */
+    .edu-table { width: 100%; border-collapse: collapse; }
+    .edu-table thead tr {
+      background: rgba(0,194,212,0.1);
+      border-bottom: 2px solid var(--cyan);
+    }
+    .edu-table th {
+      padding: 14px 18px; text-align: left;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem; color: var(--cyan); letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .edu-table td {
+      padding: 16px 18px; border-bottom: 1px solid var(--border);
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .edu-table tr:hover td { background: rgba(0,194,212,0.03); }
+    .edu-table .bold { color: var(--white); font-weight: 600; }
+    .cpi-badge {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      color: var(--navy); border-radius: 6px;
+      padding: 3px 10px; font-weight: 700; font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── CARDS ── */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 26px;
+      transition: border-color .2s, transform .2s;
+    }
+    .card:hover { border-color: rgba(0,194,212,0.4); transform: translateY(-3px); }
+
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 600; color: var(--white); line-height: 1.35;
+    }
+    .card-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--cyan);
+      white-space: nowrap; margin-top: 3px;
+      background: rgba(0,194,212,0.1);
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .card-sub {
+      font-size: 0.8rem; color: var(--gold); font-style: italic;
+      margin-bottom: 14px; font-weight: 500;
+    }
+    .card-sub2 {
+      font-size: 0.8rem; color: var(--muted); font-style: italic;
+      margin-bottom: 14px;
+    }
+    .card ul { list-style: none; padding: 0; }
+    .card ul li {
+      font-size: 0.85rem; color: var(--muted); line-height: 1.6;
+      padding: 4px 0 4px 18px; position: relative;
+    }
+    .card ul li::before {
+      content: '▸'; position: absolute; left: 0;
+      color: var(--cyan); font-size: 0.7rem; top: 6px;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .skill-group { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+    .skill-group-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem; font-weight: 600; color: var(--cyan);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;
+    }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; padding: 6px 14px; font-size: 0.82rem; color: var(--white);
+      transition: border-color .2s, background .2s;
+    }
+    .chip:hover { background: rgba(0,194,212,0.12); border-color: var(--cyan); }
+
+    /* ── COURSES ── */
+    .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .course-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 18px;
+      font-size: 0.85rem; color: var(--muted);
+      border-left: 3px solid var(--cyan);
+      transition: color .2s;
+    }
+    .course-item:hover { color: var(--white); }
+
+    /* ── CERT ── */
+    .cert-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+      transition: border-color .2s;
+    }
+    .cert-card:hover { border-color: var(--gold); }
+    .cert-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: rgba(240,165,0,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .cert-title { font-size: 0.92rem; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+    .cert-sub { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── ACHIEVEMENT ── */
+    .achievement-box {
+      background: linear-gradient(135deg, rgba(240,165,0,0.1), rgba(240,165,0,0.04));
+      border: 1px solid rgba(240,165,0,0.3); border-radius: var(--radius);
+      padding: 28px 32px; text-align: center; max-width: 600px; margin: 0 auto;
+    }
+    .achievement-box .big-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3.5rem; font-weight: 700; color: var(--gold);
+      line-height: 1;
+    }
+    .achievement-box p { font-size: 0.95rem; color: var(--muted); margin-top: 8px; }
+
+    /* ── EXTRAS ── */
+    .extras-list { display: flex; flex-wrap: wrap; gap: 12px; }
+    .extra-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 18px;
+      font-size: 0.85rem; color: var(--muted);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .extra-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid var(--border);
+      text-align: center; padding: 32px;
+      font-size: 0.82rem; color: var(--muted);
+    }
+    footer span { color: var(--cyan); }
+
+    /* ── PRINT / PDF STYLES ── */
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; color-adjust: exact !important; print-color-adjust: exact !important; }
+      nav, .hero-svg, .hero-bg, .btn-primary, .btn-outline, .hero-cta, .stat-bar { display: none !important; }
+      body { background: #fff !important; color: #111 !important; font-size: 11pt; }
+      h1 { color: #0D1B2A !important; font-size: 28pt; }
+      h2 { color: #0D1B2A !important; font-size: 14pt; border-bottom: 2px solid #00C2D4; padding-bottom: 4px; }
+      .accent, .section-label, h2 .line { color: #009AAA !important; }
+      section { padding: 16px 20px !important; }
+      .card, .skill-group, .cert-card, .course-item, .extra-item { background: #f8f9fa !important; border: 1px solid #ddd !important; }
+      .card-title, .cert-title { color: #0D1B2A !important; }
+      .card ul li, .edu-table td, .cert-sub, .extra-item, .course-item { color: #444 !important; }
+      .edu-table th { color: #009AAA !important; }
+      .cpi-badge { background: #f0a500 !important; color: #fff !important; }
+      .achievement-box { background: #fff8e6 !important; border: 1px solid #f0a500 !important; }
+      .big-num { color: #f0a500 !important; }
+      #hero { min-height: auto; padding: 20px; }
+      .hero-eyebrow, .hero-tags { display: none; }
+      a { text-decoration: none; color: inherit; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width: 768px) {
+      .nav-links { display: none; }
+      .stat-item { padding: 18px 20px; }
+      .edu-table { font-size: 0.82rem; }
+      .edu-table th, .edu-table td { padding: 10px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MM // IIT Bombay</div>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#internships">Internship</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+  </ul>
+  <button class="btn-pdf" onclick="window.print()">⬇ Download PDF</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+
+  <!-- Animated streamlines (CFD reference) -->
+  <svg class="hero-svg" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 250 Q100 200 200 250 Q300 300 400 240 Q500 180 600 230" stroke="#00C2D4" stroke-width="2" fill="none" opacity="0.6">
+      <animateTransform attributeName="transform" type="translate" values="0,0;-20,10;0,0" dur="6s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0 300 Q150 260 300 300 Q450 340 600 280" stroke="#00C2D4" stroke-width="1.5" fill="none" opacity="0.45">
+      <animateTransform attributeName="transform" type="translate" values="0,0;-15,5;0,0" dur="8s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0 350 Q100 330 200 350 Q350 380 600 320" stroke="#F0A500" stroke-width="1.5" fill="none" opacity="0.35">
+      <animateTransform attributeName="transform" type="translate" values="0,0;-25,-5;0,0" dur="7s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0 180 Q200 140 400 190 Q500 210 600 170" stroke="#00C2D4" stroke-width="1" fill="none" opacity="0.3">
+      <animateTransform attributeName="transform" type="translate" values="0,0;-10,15;0,0" dur="9s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0 420 Q200 390 400 420 Q500 435 600 400" stroke="#00C2D4" stroke-width="1" fill="none" opacity="0.25">
+      <animateTransform attributeName="transform" type="translate" values="0,0;-18,8;0,0" dur="10s" repeatCount="indefinite"/>
+    </path>
+    <!-- Compressor blade shapes -->
+    <ellipse cx="450" cy="200" rx="60" ry="18" stroke="#00C2D4" stroke-width="1" fill="none" opacity="0.2" transform="rotate(-15 450 200)"/>
+    <ellipse cx="500" cy="260" rx="55" ry="16" stroke="#F0A500" stroke-width="1" fill="none" opacity="0.15" transform="rotate(-20 500 260)"/>
+    <ellipse cx="420" cy="330" rx="65" ry="20" stroke="#00C2D4" stroke-width="1" fill="none" opacity="0.18" transform="rotate(-10 420 330)"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span></span> M.Tech · Mechanical Engineering · IIT Bombay</div>
+    <h1>Mayur <span class="accent">More</span></h1>
+    <p class="hero-sub">Thermal &amp; Fluids Engineering Specialist</p>
+    <p class="hero-inst">🎓 Indian Institute of Technology Bombay &nbsp;·&nbsp; CPI 8.55</p>
+    <div class="hero-tags">
+      <span class="tag">CFD / ANSYS Fluent</span>
+      <span class="tag">MATLAB</span>
+      <span class="tag">Turbomachinery</span>
+      <span class="tag">Axial Compressors</span>
+      <span class="tag">Heat Transfer</span>
+      <span class="tag">SolidWorks</span>
+    </div>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="window.print()">⬇ Download Resume PDF</button>
+      <button class="btn-outline" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View Projects →</button>
+    </div>
+  </div>
+</section>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="stat-item">
+    <div class="stat-num">98.4<span style="font-size:1rem">%ile</span></div>
+    <div class="stat-label">GATE 2025 Score</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">8.55</div>
+    <div class="stat-label">M.Tech CPI at IIT Bombay</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">9.13</div>
+    <div class="stat-label">B.Tech CPI</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">19</div>
+    <div class="stat-label">Compressor Stages Designed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">96%</div>
+    <div class="stat-label">Class X Score</div>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">01 / Academic Background</div>
+  <h2>Education <span class="line"></span></h2>
+  <table class="edu-table">
+    <thead>
+      <tr>
+        <th>Examination</th>
+        <th>University</th>
+        <th>Institute</th>
+        <th>Year</th>
+        <th>CPI / %</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="bold">Post Graduation (M.Tech)</td>
+        <td>IIT Bombay</td>
+        <td>IIT Bombay</td>
+        <td>2025–27</td>
+        <td><span class="cpi-badge">8.55</span></td>
+      </tr>
+      <tr>
+        <td class="bold">Graduation (Mechanical)</td>
+        <td>Shivaji University, Kolhapur</td>
+        <td>Govt. College of Engineering, Karad</td>
+        <td>2022</td>
+        <td><span class="cpi-badge">9.13</span></td>
+      </tr>
+      <tr>
+        <td class="bold">Intermediate (XII)</td>
+        <td>Maharashtra State Board</td>
+        <td>Ligade Patil Jr College of Science, Karad</td>
+        <td>2018</td>
+        <td><span class="cpi-badge">89.56%</span></td>
+      </tr>
+      <tr>
+        <td class="bold">Matriculation (X)</td>
+        <td>Maharashtra State Board</td>
+        <td>K.D.S Highschool, Patan</td>
+        <td>2016</td>
+        <td><span class="cpi-badge">96.00%</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- M.TECH PROJECTS -->
+<section id="projects">
+  <div class="section-label">02 / Research Work</div>
+  <h2>M.Tech Project &amp; Seminar <span class="line"></span></h2>
+  <div style="display:flex; flex-direction:column; gap:20px;">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Aerodynamic &amp; Thermodynamic Design of a Multi-Stage Axial Flow Compressor</div>
+        <span class="card-date">May '26 – Present</span>
+      </div>
+      <div class="card-sub">M.Tech Project — Guide: Prof. Neeraj Kumbhakarna</div>
+      <ul>
+        <li>Applying direct 3D blade design methodology using radial equilibrium equations and empirical cascade correlations (Carter's and Howell's rules) to translate 1D mean-line data into full 3D blade coordinates for 19 compressor stages.</li>
+        <li>Exploring alternative vortex strategies — constant reaction and forced vortex designs — for favorable radial distributions of blade loading.</li>
+        <li>Future: High-fidelity CFD analysis to verify stage performance, investigating tip leakage and secondary flows.</li>
+        <li>Integrating off-design performance map with the Part Electric Gas Turbine (PEGT) control logic for variable-speed motor optimization.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Aerodynamic &amp; Thermodynamic Design of a Multi-Stage Axial Flow Compressor</div>
+        <span class="card-date">Jan '26 – May '26</span>
+      </div>
+      <div class="card-sub">M.Tech Seminar — Guide: Prof. Neeraj Kumbhakarna</div>
+      <ul>
+        <li>Designed a 19-stage axial flow compressor for a marine Part Electric Gas Turbine with overall pressure ratio of 10.06 and mass flow rate of 20 kg/s.</li>
+        <li>Developed a dynamic 1D stage-by-stage solver in MATLAB to compute velocity triangles and evaluate De Haller diffusion limits.</li>
+        <li>Generated a complete off-design performance map, validating peak isentropic efficiency of 83–84%.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- INTERNSHIPS -->
+<section id="internships">
+  <div class="section-label">03 / Industry Experience</div>
+  <h2>Internships <span class="line"></span></h2>
+  <div class="card" style="max-width:800px;">
+    <div class="card-header">
+      <div>
+        <div class="card-title">CFD Intern — Vedaero</div>
+        <div class="card-sub2" style="margin-top:4px">Flow Over a Flat Plate (Boundary Layer Development)</div>
+      </div>
+      <span class="card-date">Nov '25 – Feb '26</span>
+    </div>
+    <ul>
+      <li>Acquired foundational CFD knowledge and developed practical proficiency in problem setup, solving, and post-processing using ANSYS Fluent.</li>
+      <li>Simulated development of a laminar boundary layer over a 1 m flat plate within a 2 m × 0.5 m domain at a uniform inlet velocity of 5 m/s.</li>
+      <li>Analyzed velocity boundary layer growth, mapped wall shear stress distribution, and calculated skin friction coefficient.</li>
+      <li>Validated MATLAB simulation results against the theoretical Blasius analytical solution for friction drag calculation.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- COURSE PROJECTS -->
+<section id="course-projects">
+  <div class="section-label">04 / Academic Projects</div>
+  <h2>Course Projects <span class="line"></span></h2>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Thermal Management of Hydrogen Fuel Cell</div>
+        <span class="card-date">Jan–Apr '26</span>
+      </div>
+      <div class="card-sub2">ME 770 — Thermal Design of Electronic Equipment</div>
+      <ul>
+        <li>Designed 3D biomimetic (bio-leaf) and wavy flow channel configurations to maximize convective surface area and heat extraction from the PEM.</li>
+        <li>Conducted CFD and heat transfer simulations targeting membrane stabilization at 333K.</li>
+        <li>Demonstrated that complex flow geometries significantly improve thermal bridging over standard serpentine channels.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Free Stream Flow Across a Square Cylinder</div>
+        <span class="card-date">Jan–Apr '26</span>
+      </div>
+      <div class="card-sub2">ME 415 — Computational Fluid Dynamics &amp; Heat Transfer</div>
+      <ul>
+        <li>Developed a 2D incompressible flow solver using semi-explicit pressure correction on a 220×176 non-uniform staggered grid.</li>
+        <li>Implemented FVM with flux-based methodology: First Order Upwind for advection, Central Differencing for diffusion.</li>
+        <li>Simulated free stream flow at Re = 100 to capture aerodynamic wake and vortex shedding characteristics.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Warpage Prediction in Panel-Level Advanced Packaging</div>
+        <span class="card-date">Jan–Apr '26</span>
+      </div>
+      <div class="card-sub2">ME 768 — Advanced Packaging</div>
+      <ul>
+        <li>Investigated warpage in Fan-Out Panel-Level Packaging (FOPLP) from CTE mismatch and polymer curing shrinkage (230°C → room temp).</li>
+        <li>Evaluated structural deformations exceeding 40 mm on large-scale Gen-3 panels (550×650 mm).</li>
+        <li>Proposed control mechanisms to mitigate structural strain and address FOPLP industrialization barriers.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- BTECH PROJECT -->
+<section id="btech">
+  <div class="section-label">05 / Undergraduate Work</div>
+  <h2>B.Tech Project &amp; Training <span class="line"></span></h2>
+  <div class="cards-grid">
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px; font-size:1rem;">Design &amp; Fabrication of Pico Hydroelectric Turbine</div>
+      <ul>
+        <li>Developed a decentralized renewable energy solution to reduce reliance on centralized power systems.</li>
+        <li>Led the fabrication process and ensured quality control throughout the project.</li>
+        <li>Enhanced teamwork, problem-solving, and renewable energy expertise.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:6px; font-size:1rem;">Industrial Training — TQM &amp; Six Sigma</div>
+      <div class="card-sub2" style="margin-bottom:14px;">15-Day Comprehensive Training · 3rd Year of Engineering</div>
+      <ul>
+        <li>Developed skills in process optimization, defect reduction, and efficiency enhancement.</li>
+        <li>Gained proficiency in data-driven decision-making and statistical analysis.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">06 / Technical Expertise</div>
+  <h2>Skills &amp; Tools <span class="line"></span></h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Programming &amp; Scripting</div>
+      <div class="skill-chips">
+        <span class="chip">MATLAB</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Simulation &amp; CFD</div>
+      <div class="skill-chips">
+        <span class="chip">ANSYS Fluent</span>
+        <span class="chip">CFD Analysis</span>
+        <span class="chip">FVM</span>
+        <span class="chip">Boundary Layer Analysis</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">CAD &amp; Design</div>
+      <div class="skill-chips">
+        <span class="chip">SolidWorks</span>
+        <span class="chip">Fusion 360</span>
+        <span class="chip">Siemens NX</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Documentation</div>
+      <div class="skill-chips">
+        <span class="chip">LaTeX</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY COURSES -->
+<section id="courses">
+  <div class="section-label">07 / Coursework</div>
+  <h2>Key Courses <span class="line"></span></h2>
+  <div class="course-grid">
+    <div class="course-item">Computational Fluid Dynamics &amp; Heat Transfer</div>
+    <div class="course-item">Fluid Dynamics</div>
+    <div class="course-item">Advanced Heat Transfer</div>
+    <div class="course-item">Thermal Design of Electronic Equipment</div>
+    <div class="course-item">Microsystem Packaging</div>
+    <div class="course-item">Combustion in Automobile &amp; Gas Turbine</div>
+    <div class="course-item">Computational Methods in Thermal &amp; Fluid Engineering</div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">08 / Credentials</div>
+  <h2>Certifications <span class="line"></span></h2>
+  <div style="display:flex; flex-direction:column; gap:14px; max-width:700px;">
+    <div class="cert-card">
+      <div class="cert-icon">🎓</div>
+      <div>
+        <div class="cert-title">MATLAB® Course — IIT Madras Pravartak</div>
+        <div class="cert-sub">Successfully completed training to analyze data, develop algorithms, and model systems using MATLAB.</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">✈️</div>
+      <div>
+        <div class="cert-title">Siemens NX Training — Internshala</div>
+        <div class="cert-sub">Comprehensive 3D modeling and design training with a specialized practical project on airplane wing design.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">09 / Recognition</div>
+  <h2>Scholastic Achievement <span class="line"></span></h2>
+  <div class="achievement-box">
+    <div class="big-num">98.431%ile</div>
+    <p>GATE 2025 — Mechanical Engineering Paper<br/>Among <strong style="color:#F0A500">62,015 students</strong> nationwide</p>
+  </div>
+</section>
+
+<!-- EXTRA CURRICULARS -->
+<section id="extras">
+  <div class="section-label">10 / Beyond Academics</div>
+  <h2>Responsibilities &amp; Extra-Curriculars <span class="line"></span></h2>
+  <div class="extras-list">
+    <div class="extra-item"><span class="dot"></span>Teaching Assistant — MS101: Maker's Space (Aug'25–Apr'26)</div>
+    <div class="extra-item"><span class="dot"></span>Inter-Departmental Badminton (Singles) Tournament</div>
+    <div class="extra-item"><span class="dot"></span>District-Level Speech Competition</div>
+    <div class="extra-item"><span class="dot"></span>Hobbies: Music · Badminton · Cricket · 2D &amp; 3D Animation</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Mayur More &nbsp;·&nbsp; M.Tech Mechanical Engineering &nbsp;·&nbsp; <span>IIT Bombay</span> &nbsp;·&nbsp; Thermal &amp; Fluids Engineering</p>
+  <p style="margin-top:8px">DOB: 30/12/2000 &nbsp;·&nbsp; Gender: Male</p>
+</footer>
+
+</body>
+</html>
